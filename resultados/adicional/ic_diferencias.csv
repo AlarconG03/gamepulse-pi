@@ -1,0 +1,16 @@
+modelo_a,modelo_b,metrica,diferencia,ic95_inf,ic95_sup,ic_excluye_cero
+LightGBM,Línea base (recencia),PR_AUC,0.1681,0.1537,0.1825,True
+LightGBM,Línea base (recencia),precision@K,0.2177,0.1908,0.2359,True
+LightGBM,Línea base (recencia),recall@K,0.1124,0.0979,0.1219,True
+LightGBM,Regresión logística,PR_AUC,0.033,0.0238,0.042,True
+LightGBM,Regresión logística,precision@K,0.0421,0.0273,0.0595,True
+LightGBM,Regresión logística,recall@K,0.0212,0.0135,0.03,True
+LightGBM,Random Forest,PR_AUC,-0.0068,-0.0121,-0.0018,True
+LightGBM,Random Forest,precision@K,-0.0053,-0.0166,0.0057,False
+LightGBM,Random Forest,recall@K,-0.0028,-0.0086,0.003,False
+LightGBM,Ensamble,PR_AUC,-0.0046,-0.0088,-0.0006,True
+LightGBM,Ensamble,precision@K,0.003,-0.0078,0.0146,False
+LightGBM,Ensamble,recall@K,0.001,-0.0045,0.007,False
+Random Forest,Regresión logística,PR_AUC,0.0398,0.0307,0.0492,True
+Random Forest,Regresión logística,precision@K,0.0474,0.0335,0.0643,True
+Random Forest,Regresión logística,recall@K,0.024,0.0166,0.0325,True

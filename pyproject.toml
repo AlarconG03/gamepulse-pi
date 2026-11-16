@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gamepulse-ml"
+version = "2.0.0"
+description = "GamePulse: predicción de inactividad prolongada de jugadores (WoWAH 2008) con validación temporal y orquestación en Prefect"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+  { name = "Juan Alberto Rodríguez" },
+  { name = "Alejandro Zapata" },
+  { name = "Vladlen Shatunov" },
+  { name = "Samuel Alarcón" },
+]
+dependencies = [
+  "pandas>=2.2",
+  "pyarrow>=15",
+  "numpy",
+  "scikit-learn>=1.4",
+  "lightgbm>=4.0",
+  "shap>=0.45",
+  "matplotlib",
+  "joblib",
+  "prefect>=3.4,<4",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

@@ -1,0 +1,18 @@
+# Datos y salidas pesadas: se regeneran con el pipeline
+data/*.parquet
+!data/plata_wowah.parquet
+data/*.csv
+salida_auditoria/
+runs/
+out/
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+
+# Tablero: secretos locales
+# tablero/datos/ se versiona: es la instantánea que lee el tablero en Streamlit Cloud
+tablero/.streamlit/secrets.toml
+
+# Paquetes generados para compartir
+*.zip

@@ -1,0 +1,11 @@
+familia,params,PR_AUC_bloque1,PR_AUC_bloque2,PR_AUC_bloque3,PR_AUC_media,PR_AUC_std,elegido
+Regresión logística,"{""C"": 0.01}",0.4379,0.4908,0.4779,0.4689,0.0225,True
+Regresión logística,"{""C"": 0.1}",0.4374,0.4898,0.4771,0.4681,0.0223,False
+Regresión logística,"{""C"": 1.0}",0.4373,0.4896,0.477,0.4679,0.0223,False
+Random Forest,"{""min_leaf"": 20}",0.4748,0.5193,0.5157,0.5033,0.0202,True
+Random Forest,"{""min_leaf"": 50}",0.4736,0.5185,0.5168,0.503,0.0208,False
+Random Forest,"{""min_leaf"": 100}",0.4716,0.5154,0.5157,0.5009,0.0207,False
+LightGBM,"{""nl"": 15, ""lr"": 0.05, ""n"": 300}",0.4788,0.5321,0.529,0.5133,0.0244,True
+LightGBM,"{""nl"": 15, ""lr"": 0.03, ""n"": 600}",0.4803,0.5321,0.5275,0.5133,0.0234,True
+LightGBM,"{""nl"": 31, ""lr"": 0.05, ""n"": 300}",0.4767,0.5285,0.5245,0.5099,0.0235,False
+LightGBM,"{""nl"": 31, ""lr"": 0.03, ""n"": 600}",0.4797,0.5293,0.5258,0.5116,0.0226,False

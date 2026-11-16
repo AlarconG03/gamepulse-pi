@@ -1,0 +1,18 @@
+[theme]
+base = "light"
+# Paleta del tablero: azul (modelo), naranja (abandono real), gris (referencia); el resto son neutros de superficie y tinta.
+primaryColor = "#2a78d6"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f3f4f6"
+textColor = "#1b1f24"
+borderColor = "#dfe2e7"
+# Archivo (ancho variable) desde Google Fonts; si no carga, la fuente del sistema.
+font = "Archivo:https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap, system-ui, sans-serif"
+baseRadius = "0.6rem"
+chartCategoricalColors = ["#2a78d6", "#eb6834", "#a3a29c"]
+
+[client]
+toolbarMode = "minimal"
+
+[browser]
+gatherUsageStats = false

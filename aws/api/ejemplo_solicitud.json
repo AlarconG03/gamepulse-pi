@@ -1,0 +1,43 @@
+{
+ "jugadores": [
+  {
+   "dias_desde_ultima": 6,
+   "antiguedad_dias": 7,
+   "antiguedad_censurada": 0,
+   "dias_activos_hist": 2,
+   "frac_dias_activos_7": 0.2857142857142857,
+   "horas_7": 0.4147222222222222,
+   "sesiones_7": 1.0,
+   "frac_dias_activos_14": 0.15384615384615385,
+   "horas_14": 0.4466239316239316,
+   "sesiones_14": 1.0769230769230769,
+   "frac_dias_activos_28": 0.07407407407407407,
+   "horas_28": 0.43008230452674895,
+   "sesiones_28": 1.037037037037037,
+   "tendencia_horas": 1.5924603174603174,
+   "tendencia_dias": 6.7142857142857135,
+   "horas_por_sesion_28": 0.4147222222222222,
+   "horas_por_dia_activo_28": 0.2073611111111111,
+   "frac_finde_28": 0.0,
+   "salto_max_28": 6.0,
+   "salto_std_28": 0.0,
+   "nivel": 3,
+   "distancia_al_tope": 77,
+   "en_tope": 0,
+   "niveles_ganados_28": 2,
+   "dias_desde_subida_nivel": 6.0,
+   "n_zonas_28": 1,
+   "entropia_zonas_28": -0.0,
+   "frac_ciudad_28": 0.0,
+   "frac_pvp_28": 0.0,
+   "frac_raid_28": 0.0,
+   "frac_mazmorra_28": 0.0,
+   "frac_mundo_28": 1.0,
+   "tiene_gremio": 0,
+   "cambios_gremio_28": 0,
+   "tamano_gremio_activo_7": 0.0,
+   "clase": "Warrior",
+   "raza": "Orc"
+  }
+ ]
+}

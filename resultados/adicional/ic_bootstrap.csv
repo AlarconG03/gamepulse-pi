@@ -1,0 +1,31 @@
+modelo,metrica,valor,ic95_inf,ic95_sup,B
+Línea base (recencia),PR_AUC,0.4497,0.4344,0.465,2000
+Línea base (recencia),ROC_AUC,0.8064,0.7994,0.8132,2000
+Línea base (recencia),precision@K,0.504,0.4852,0.5283,2000
+Línea base (recencia),recall@K,0.2583,0.2495,0.2713,2000
+Línea base (recencia),lift_PR_AUC,2.299,2.226,2.3781,2000
+Línea base (recencia),lift@K,2.5764,2.4868,2.7014,2000
+Regresión logística,PR_AUC,0.5849,0.5682,0.6013,2000
+Regresión logística,ROC_AUC,0.859,0.853,0.8649,2000
+Regresión logística,precision@K,0.6796,0.659,0.6982,2000
+Regresión logística,recall@K,0.3495,0.3371,0.3606,2000
+Regresión logística,lift_PR_AUC,2.99,2.8939,3.092,2000
+Regresión logística,lift@K,3.4742,3.3528,3.5809,2000
+Random Forest,PR_AUC,0.6247,0.6096,0.6406,2000
+Random Forest,ROC_AUC,0.8683,0.8624,0.8741,2000
+Random Forest,precision@K,0.727,0.7059,0.7454,2000
+Random Forest,recall@K,0.3734,0.3616,0.3856,2000
+Random Forest,lift_PR_AUC,3.1935,3.0928,3.2987,2000
+Random Forest,lift@K,3.7164,3.6034,3.8347,2000
+LightGBM,PR_AUC,0.6179,0.6021,0.6337,2000
+LightGBM,ROC_AUC,0.8691,0.8634,0.8747,2000
+LightGBM,precision@K,0.7217,0.7006,0.7405,2000
+LightGBM,recall@K,0.3706,0.3591,0.3825,2000
+LightGBM,lift_PR_AUC,3.1585,3.0576,3.2623,2000
+LightGBM,lift@K,3.6895,3.5775,3.8045,2000
+Ensamble,PR_AUC,0.6225,0.6068,0.638,2000
+Ensamble,ROC_AUC,0.8697,0.864,0.8753,2000
+Ensamble,precision@K,0.7187,0.6969,0.739,2000
+Ensamble,recall@K,0.3697,0.3579,0.3811,2000
+Ensamble,lift_PR_AUC,3.1822,3.0804,3.2853,2000
+Ensamble,lift@K,3.6742,3.5607,3.787,2000

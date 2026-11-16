@@ -1,0 +1,125 @@
+{
+  "flow_run_id": "4a96a511-e039-439d-9f0f-dd4c8d6ff47c",
+  "flow_run_name": "pistachio-impala",
+  "prefect_ui": "http://127.0.0.1:4200/flow-runs/flow-run/4a96a511-e039-439d-9f0f-dd4c8d6ff47c",
+  "version_paquete": "2.0.0",
+  "commit_git": null,
+  "sha256_datos": "de56570d2136eeac154b8c2c03a2a7528cf19539888ced0fb675707d83367afc",
+  "dataset": {
+    "archivo": "runs/cache/dataset_H30_e7_m2_c20.parquet",
+    "config": "H30_e7_m2_c20",
+    "filas": 156877,
+    "personajes": 18440,
+    "cortes_validos": 41,
+    "tasa_churn": 0.1408,
+    "variables": 37,
+    "reaparicion_60d_%": 37.0,
+    "sha256_datos": "de56570d2136eeac154b8c2c03a2a7528cf19539888ced0fb675707d83367afc",
+    "reutilizado": true
+  },
+  "parametros": {
+    "horizonte_dias": 30,
+    "eleg_dias": 7,
+    "min_dias_hist": 2,
+    "umbral_cobertura": 0.2,
+    "min_dias_cubiertos_eleg": 5,
+    "primer_corte": "2008-02-04",
+    "val_ini": "2008-08-25",
+    "val_fin": "2008-09-22",
+    "test_ini": "2008-10-27",
+    "n_folds": 3,
+    "semanas_por_fold": 5,
+    "k_frac": 0.1,
+    "k_segmentos": 5,
+    "seed": 42,
+    "familias": [
+      "Regresión logística",
+      "Random Forest",
+      "LightGBM"
+    ],
+    "src": "data/plata_wowah.parquet"
+  },
+  "versiones": {
+    "python": "3.13.17",
+    "sistema": "Linux-6.18.44-fc-v338-x86_64-with-glibc2.39",
+    "pandas": "3.0.5",
+    "numpy": "2.5.3",
+    "pyarrow": "26.0.0",
+    "scikit-learn": "1.9.1",
+    "lightgbm": "4.7.0",
+    "shap": "0.54.1",
+    "prefect": "3.9.1"
+  },
+  "datos": {
+    "archivo": "data/plata_wowah.parquet",
+    "sha256": "de56570d2136eeac154b8c2c03a2a7528cf19539888ced0fb675707d83367afc",
+    "filas": 10823177,
+    "personajes": 37354,
+    "ids_inconsistentes": 819,
+    "ts_min": "2008-01-01 00:02:04",
+    "ts_max": "2008-12-31 23:50:18",
+    "gremio_nulo_%": 15.64,
+    "errores": [],
+    "advertencias": []
+  },
+  "modelo_elegido": "LightGBM",
+  "hiperparametros": {
+    "nl": 15,
+    "lr": 0.05,
+    "n": 300
+  },
+  "metricas_validacion": {
+    "PR_AUC": 0.529,
+    "ROC_AUC": 0.8767,
+    "precision@K": 0.5586,
+    "recall@K": 0.4225,
+    "tasa_base": 0.1324,
+    "PR_AUC_cv_media": 0.5133,
+    "PR_AUC_cv_std": 0.0244
+  },
+  "metricas_prueba": {
+    "PR_AUC": 0.6179,
+    "ROC_AUC": 0.8691,
+    "precision@K": 0.7217,
+    "recall@K": 0.3706,
+    "tasa_base": 0.1956,
+    "umbral": 0.2402,
+    "precision": 0.5455,
+    "recall": 0.6635,
+    "F1": 0.5988,
+    "brier": 0.1102,
+    "VP": 2905,
+    "FP": 2420,
+    "FN": 1473,
+    "VN": 15582
+  },
+  "linea_base_prueba": {
+    "PR_AUC": 0.4497,
+    "ROC_AUC": 0.8064,
+    "precision@K": 0.504,
+    "recall@K": 0.2583,
+    "tasa_base": 0.1956,
+    "umbral": 0.5536,
+    "precision": 0.3931,
+    "recall": 0.7088,
+    "F1": 0.5057,
+    "brier": NaN,
+    "VP": 3103,
+    "FP": 4791,
+    "FN": 1275,
+    "VN": 13211
+  },
+  "ablacion": {
+    "familia": "LightGBM",
+    "excluidas": [
+      "antiguedad_censurada",
+      "dias_activos_hist",
+      "antiguedad_dias"
+    ],
+    "PR_AUC_con": 0.6179,
+    "PR_AUC_sin": 0.6113,
+    "diferencia": -0.0066,
+    "precision@K_con": 0.7217,
+    "precision@K_sin": 0.7032
+  }
+}

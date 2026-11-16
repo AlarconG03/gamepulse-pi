@@ -1,0 +1,7 @@
+escenario,horizonte_dias,eleg_dias,min_dias_hist,elegibles_por_corte,cortes_prueba,filas,tasa_churn_total,reaparicion_60d_%,tasa_churn_test,PR_AUC_test,lift_PR_AUC,precision@K_test,recall@K_test,PR_AUC_en_poblacion_base,tasa_churn_poblacion_base
+H21,21,7,2,3825,7,160635,0.1653,44.0,0.2192,0.6356,2.9,0.7347,0.3373,0.6356,0.2212
+H30 (base),30,7,2,3826,6,156877,0.1408,37.0,0.1956,0.6179,3.16,0.7217,0.3706,0.6179,0.1956
+H45,45,7,2,3834,3,145704,0.1148,28.9,0.1638,0.6199,3.78,0.6965,0.4265,0.6199,0.1638
+H60,60,7,2,3846,1,138444,0.10060000000000001,23.8,0.1654,0.6461,3.91,0.7468,0.4518,0.6461,0.1654
+Población: activos en 14 días,30,14,2,4823,6,212233,0.2062,34.9,0.2835,0.7104,2.51,0.8242,0.2912,0.6221,0.1956
+Población: incluye personajes de 1 día,30,7,1,4288,6,175812,0.2099,27.6,0.2743,0.7798,2.84,0.8888,0.3279,0.6221,0.1956

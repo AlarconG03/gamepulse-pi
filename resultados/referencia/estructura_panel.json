@@ -1,0 +1,10 @@
+{
+  "filas": 156877,
+  "personajes": 18440,
+  "cortes_por_personaje_mediana": 3.0,
+  "cortes_por_personaje_p90": 26.0,
+  "%_personajes_en_un_solo_corte": 29.4,
+  "personajes_prueba": 8364,
+  "%_personajes_prueba_vistos_al_entrenar": 63.8,
+  "%_filas_prueba_de_personajes_nuevos": 22.9
+}

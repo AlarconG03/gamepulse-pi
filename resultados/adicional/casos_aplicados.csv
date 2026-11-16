@@ -1,0 +1,6 @@
+caso,char_id,fecha_corte,riesgo,percentil_en_el_corte,abandono_observado,clase,nivel,dias_desde_ultima,frac_dias_activos_28,factores_shap
+Acierto: abandona y se alertó (VP),73566,2008-11-10,0.52,0.928,1,Rogue,1,6,0.04,frac_dias_activos_28=0.04 (+0.89); dias_desde_ultima=6.0 (+0.59); dias_activos_hist=5.0 (+0.39); frac_dias_activos_7=0.14 (+0.34)
+Falsa alarma: se alertó y volvió (FP),85183,2008-11-10,0.373,0.872,0,Warrior,1,1,0.11,frac_dias_activos_28=0.11 (+0.83); dias_activos_hist=3.0 (+0.64); dias_desde_ultima=1.0 (-0.40); frac_dias_activos_7=0.29 (+0.30)
+Omisión: abandonó sin alerta (FN),76975,2008-11-10,0.127,0.667,1,Paladin,61,4,0.67,dias_desde_ultima=4.0 (+0.62); frac_dias_activos_7=0.29 (+0.47); tendencia_horas=0.16 (+0.39); frac_dias_activos_28=0.67 (-0.25)
+Acierto: no abandona y sin alerta (VN),4002,2008-11-10,0.021,0.372,0,Hunter,70,2,0.37,dias_activos_hist=119.0 (-0.31); frac_dias_activos_28=0.37 (-0.25); dias_desde_ultima=2.0 (+0.18); antiguedad_censurada=1.0 (-0.17)
+Nivel máximo que abandona (subpoblación débil),34437,2008-11-10,0.119,0.653,1,Paladin,70,2,0.19,frac_dias_activos_28=0.19 (+0.41); frac_dias_activos_7=0.14 (+0.36); sesiones_7=1.0 (+0.35); dias_activos_hist=67.0 (-0.28)

@@ -1,0 +1,73 @@
+{
+  "familia": "LightGBM",
+  "columnas": [
+    "dias_desde_ultima",
+    "antiguedad_dias",
+    "antiguedad_censurada",
+    "dias_activos_hist",
+    "frac_dias_activos_7",
+    "horas_7",
+    "sesiones_7",
+    "frac_dias_activos_14",
+    "horas_14",
+    "sesiones_14",
+    "frac_dias_activos_28",
+    "horas_28",
+    "sesiones_28",
+    "tendencia_horas",
+    "tendencia_dias",
+    "horas_por_sesion_28",
+    "horas_por_dia_activo_28",
+    "frac_finde_28",
+    "salto_max_28",
+    "salto_std_28",
+    "nivel",
+    "distancia_al_tope",
+    "en_tope",
+    "niveles_ganados_28",
+    "dias_desde_subida_nivel",
+    "n_zonas_28",
+    "entropia_zonas_28",
+    "frac_ciudad_28",
+    "frac_pvp_28",
+    "frac_raid_28",
+    "frac_mazmorra_28",
+    "frac_mundo_28",
+    "tiene_gremio",
+    "cambios_gremio_28",
+    "tamano_gremio_activo_7",
+    "clase",
+    "raza"
+  ],
+  "categoricas": {
+    "clase": [
+      "Death Knight",
+      "Druid",
+      "Hunter",
+      "Mage",
+      "Paladin",
+      "Priest",
+      "Rogue",
+      "Shaman",
+      "Warlock",
+      "Warrior"
+    ],
+    "raza": [
+      "Blood Elf",
+      "Orc",
+      "Tauren",
+      "Troll",
+      "Undead"
+    ]
+  },
+  "umbral": 0.2402,
+  "params": {
+    "nl": 15,
+    "lr": 0.05,
+    "n": 300
+  },
+  "dataset": "H30_e7_m2_c20",
+  "sha256_datos": "de56570d2136eeac154b8c2c03a2a7528cf19539888ced0fb675707d83367afc",
+  "version_paquete": "2.0.0",
+  "sha256_modelo": "0e7c9e8852e4030439983810448bb9498232d55ba4f46794693fd06fe44f1eda"
+}

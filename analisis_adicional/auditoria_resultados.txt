@@ -1,0 +1,183 @@
+
+=== 1. Reconciliacion con el README ===
+filas 10823177 | personajes 37354 | ts 2008-01-01 00:02:04 -> 2008-12-31 23:50:18
+nulos por columna: {'char_id': 0, 'nivel': 0, 'raza': 0, 'clase': 0, 'zona': 0, 'gremio': 1693240, 'ts': 0, 'id_inconsistente': 0, 'd': 0}
+duplicados (char_id, ts): 0
+IDs inconsistentes: 819 | filas: 231045
+gremio nulo: 1693240 (15.64%)
+razas 5 | clases 10 | zonas 158 | nivel 1 - 80
+personajes inconsistentes: 819 (2.19% de los personajes)
+
+=== 2. Cobertura temporal diaria ===
+dias con datos 352 de 366; dias SIN registros: ['2008-04-04', '2008-04-05', '2008-04-06', '2008-05-01', '2008-05-02', '2008-05-03', '2008-05-04', '2008-05-05', '2008-05-17', '2008-05-18', '2008-06-14', '2008-06-15', '2008-06-16', '2008-06-17']
+mediana registros/dia 29785.5
+dias con < 50% de la mediana (15): [('2008-03-27', 3826, 723), ('2008-04-03', 4113, 737), ('2008-06-13', 4643, 672), ('2008-06-22', 7543, 866), ('2008-06-23', 13422, 1249), ('2008-10-23', 4967, 1078), ('2008-11-05', 14771, 1587), ('2008-11-06', 10789, 1366), ('2008-11-11', 14769, 1598), ('2008-11-13', 12416, 1459), ('2008-11-14', 13326, 1514), ('2008-11-17', 14658, 1651), ('2008-11-18', 2499, 569), ('2008-11-20', 14826, 1640), ('2008-11-27', 12918, 1492)]
+        reg  pers_dia_prom
+ts                        
+1   1298358         2306.0
+2   1230593         2307.0
+3   1219557         2231.0
+4    921390         1818.0
+5    737512         1506.0
+6    754577         1603.0
+7    934487         1889.0
+8    870118         1799.0
+9    795083         1766.0
+10   702161         1833.0
+11   592553         1741.0
+12   766788         1877.0
+
+=== 3. Cadencia entre observaciones consecutivas (min) ===
+count    10785823.00
+mean          362.07
+std          5415.99
+min             0.08
+10%             9.53
+25%             9.73
+50%            10.22
+75%            10.97
+90%            31.93
+99%          5203.48
+max        520453.03
+P(brecha > 15 min) = 0.1636
+P(brecha > 60 min) = 0.0900
+P(brecha > 360 min) = 0.0647
+P(brecha > 1440 min) = 0.0246
+
+=== 4. Saltos entre dias activos consecutivos (sin IDs inconsistentes) ===
+n saltos 640975 | salto == 1 dia: 442196 (69.0%)
+salto >=  2 d:  198779  (31.01%)
+salto >=  3 d:  136290  (21.26%)
+salto >=  7 d:   62683  (9.78%)
+salto >= 14 d:   31991  (4.99%)
+salto >= 21 d:   21476  (3.35%)
+salto >= 30 d:   14777  (2.31%)
+salto >= 45 d:    9535  (1.49%)
+salto >= 60 d:    6878  (1.07%)
+
+=== 5. Vida del personaje y composicion de la poblacion ===
+dias activos: mediana 2, media 18.5, p25 1, p75 10
+<=3 dias: 0.619 | <=7: 0.720 | >=60: 0.094
+    primera_aparicion  ultima_aparicion
+1                8600              1954
+2                3092              1923
+3                2517              2092
+4                1693              1646
+5                1482              1210
+6                1558              1500
+7                2053              2181
+8                1858              2217
+9                1581              2051
+10               6741              7561
+11               3876              4906
+12               2303              8113
+primera obs con nivel<=5: 0.672 | <=10: 0.713 | primera obs en los 3 primeros dias del ano: 0.094
+nuevos en octubre: 6741 | con <=3 dias activos: 0.923 | ultima aparicion en octubre: 0.889
+nuevos/dia: mediana fuera de octubre 73.0 | 1-15 oct: {1: 36, 2: 43, 3: 42, 4: 45, 5: 45, 6: 43, 7: 187, 8: 1521, 9: 832, 10: 431, 11: 193, 12: 583, 13: 492, 14: 298, 15: 198}
+7-13 oct: n 4239 | nivel mediano 1a obs 1.0 | % nivel<=5: 0.98 | zona: {'Durotar': 3870, 'Eversong Woods': 160, 'Mulgore': 67}
+
+=== 6. Cambio de regimen (expansion nominal 13/11/2008) ===
+primer Death Knight: 2008-11-19 13:06:06 | filas 230061 | personajes 1704
+primer registro con nivel > 70: 2008-11-19 13:06:21
+antes 13/11 | regs/dia 30531 | pers/dia 1985 | %nivel70 0.665 | %nivel80 0.000 | %>70 0.000
+desde 13/11 | regs/dia 23364 | pers/dia 1837 | %nivel70 0.110 | %nivel80 0.298 | %>70 0.626
+14 d antes vs 14 d despues: regs/dia 17973 vs 19793 | pers/dia 1692 vs 1731
+% registros en nivel 70 por mes: {1: 0.648, 2: 0.65, 3: 0.687, 4: 0.744, 5: 0.7, 6: 0.662, 7: 0.658, 8: 0.65, 9: 0.624, 10: 0.621, 11: 0.399, 12: 0.044}
+DK por dia (primeros): {'2008-11-19': 5752, '2008-11-20': 3981, '2008-11-21': 6805, '2008-11-22': 8068}
+personajes/dia 12-nov..22-nov: {'11-12': 1594, '11-13': 1459, '11-14': 1514, '11-15': 1820, '11-16': 1933, '11-17': 1651, '11-18': 569, '11-19': 1558, '11-20': 1640, '11-21': 1910, '11-22': 2033}
+
+=== 7. Viabilidad de la etiqueta: corte c, historia = dias < c, futuro = dias [c, c+30) ===
+     corte  n_vistos  y_vistos   nA    yA   nB    yB   nC    yC  pos_B  reaparece60_A
+2008-02-12      9736     0.424 6246 0.250 4693 0.147 4384 0.140    692          0.241
+2008-02-19     10438     0.460 6333 0.261 4746 0.154 4459 0.147    731          0.248
+2008-02-26     11108     0.480 6255 0.247 4736 0.151 4492 0.148    717          0.225
+2008-03-04     11698     0.509 6146 0.246 4740 0.151 4495 0.147    714          0.234
+2008-03-11     12320     0.545 6173 0.264 4691 0.159 4466 0.155    745          0.283
+2008-03-18     12902     0.565 6101 0.270 4646 0.161 4408 0.155    749          0.275
+2008-03-25     13459     0.587 6088 0.276 4644 0.174 4429 0.165    806          0.245
+2008-04-01     13906     0.603 5841 0.275 4487 0.173 4300 0.169    776          0.220
+2008-04-08     14126     0.616 5000 0.228 4128 0.158 4044 0.156    654          0.260
+2008-04-15     14644     0.625 5105 0.225 4079 0.143 3971 0.142    585          0.256
+2008-04-22     15047     0.649 5672 0.276 3949 0.146 3809 0.143    578          0.266
+2008-04-29     15459     0.668 5601 0.293 3961 0.155 3827 0.147    612          0.311
+2008-05-06     15546     0.657 4699 0.225 3860 0.150 3799 0.146    580          0.304
+2008-05-13     16020     0.665 4629 0.206 3902 0.146 3786 0.143    569          0.311
+2008-05-20     16262     0.677 4925 0.235 3682 0.139 3542 0.134    511          0.333
+2008-05-27     16685     0.690 4972 0.238 3544 0.121 3428 0.117    430          0.341
+2008-06-03     17095     0.697 5355 0.264 3877 0.142 3724 0.139    552          0.322
+2008-06-10     17489     0.710 5374 0.280 3901 0.153 3734 0.146    595          0.335
+2008-06-17     17631     0.702 4687 0.226 3834 0.147 3736 0.142    563          0.312
+2008-06-24     17963     0.696 4213 0.185 3642 0.130 3576 0.130    475          0.301
+2008-07-01     18475     0.703 5015 0.249 3668 0.128 3493 0.124    470          0.262
+2008-07-08     18950     0.709 5400 0.272 3560 0.125 3426 0.120    446          0.230
+2008-07-15     19463     0.716 5390 0.277 3824 0.150 3645 0.142    572          0.231
+2008-07-22     19864     0.725 5394 0.283 4010 0.165 3842 0.159    663          0.254
+2008-07-29     20353     0.734 5421 0.289 3954 0.167 3814 0.162    662          0.274
+2008-08-05     20685     0.742 5262 0.280 3935 0.173 3776 0.169    679          0.289
+2008-08-12     21071     0.747 5111 0.262 3852 0.165 3722 0.161    636          0.300
+2008-08-19     21549     0.753 5202 0.286 3829 0.163 3673 0.158    624          0.259
+2008-08-26     21900     0.762 5151 0.292 3801 0.168 3668 0.162    638          0.269
+2008-09-02     22333     0.760 5079 0.271 3758 0.158 3641 0.154    594          0.271
+2008-09-09     22702     0.762 5050 0.257 3745 0.142 3608 0.136    533          0.274
+2008-09-16     23074     0.767 5024 0.255 3771 0.142 3614 0.139    535          0.290
+2008-09-23     23397     0.769 4967 0.258 3696 0.141 3570 0.136    521          0.286
+2008-09-30     23807     0.765 5095 0.262 3676 0.145 3546 0.136    534          0.231
+2008-10-07     24085     0.770 5038 0.274 3687 0.157 3536 0.149    579            NaN
+2008-10-14     28265     0.790 8760 0.541 3743 0.185 3553 0.173    691            NaN
+2008-10-21     29625     0.804 9692 0.600 3793 0.201 3524 0.175    761            NaN
+2008-10-28     30280     0.814 6754 0.445 3892 0.214 3756 0.208    832            NaN
+2008-11-04     30807     0.821 5994 0.370 3942 0.212 3824 0.210    835            NaN
+2008-11-11     31248     0.829 5383 0.345 3745 0.183 3627 0.181    687            NaN
+2008-11-18     31817     0.844 5300 0.403 3681 0.239 3587 0.234    880            NaN
+2008-11-25     33451     0.837 6470 0.398 4002 0.212 3431 0.222    847            NaN
+
+Resumen: yB min/max 0.121/0.239 | nB min/max 3544/4746 | reaparece60_A min/max 0.220/0.341
+efecto 819 IDs (corte 2008-05-20, activos 14 d): con 0.2363 | sin 0.2351
+ultimo corte con 30 d completos de seguimiento: 2008-12-01 (ventana hasta 2008-12-30)
+
+=== 8. Perfil descriptivo basico ===
+top zonas (% registros): {'Shattrath City': 10.2, 'Orgrimmar': 6.4, 'Karazhan': 4.4, 'Terokkar Forest': 3.5, 'Hellfire Peninsula': 3.3}
+clase (% personajes): {'Warrior': 20.2, 'Hunter': 13.0, 'Rogue': 12.5, 'Mage': 10.9, 'Warlock': 10.5, 'Paladin': 8.4, 'Shaman': 8.0, 'Priest': 7.2, 'Druid': 5.0, 'Death Knight': 4.3}
+raza (% personajes): {'Blood Elf': 33.4, 'Orc': 19.0, 'Troll': 18.0, 'Undead': 15.6, 'Tauren': 14.0}
+personajes con gremio alguna vez: 0.323
+personajes que suben >= 1 nivel en 2008: 0.486 | llegan a nivel >= 70: 0.124
+
+=== 9. Senales preliminares sobre plata: tasa de y=1 por categoria de cada senal ===
+filas (personaje, corte): 11323 | personajes distintos: 6697 | tasa y=1 global: 0.117
+  corte 2008-03-25 n 4268 tasa 0.133
+  corte 2008-06-03 n 3624 tasa 0.111
+  corte 2008-09-09 n 3431 tasa 0.101
+Tope de nivel          menor a 70     n=  5507  y=1:  18.8%  IC95 [17.8, 19.9]
+Tope de nivel          nivel 70+      n=  5816  y=1:   4.9%  IC95 [ 4.4,  5.5]
+Gremio (H4)            con gremio     n=  8677  y=1:   7.8%  IC95 [ 7.3,  8.4]
+Gremio (H4)            sin gremio     n=  2646  y=1:  24.3%  IC95 [22.7, 26.0]
+Regularidad (H1)       cae 3+ dias    n=  1721  y=1:  16.6%  IC95 [14.9, 18.4]
+Regularidad (H1)       cae 1-2        n=  2289  y=1:  16.2%  IC95 [14.7, 17.7]
+Regularidad (H1)       sin cambio     n=  2876  y=1:   9.0%  IC95 [ 8.0, 10.1]
+Regularidad (H1)       sube 2+        n=  4437  y=1:   9.2%  IC95 [ 8.4, 10.1]
+Variedad zonas (H3)    1-2 zonas      n=  2101  y=1:  22.5%  IC95 [20.7, 24.3]
+Variedad zonas (H3)    3-5            n=  1463  y=1:  23.4%  IC95 [21.3, 25.6]
+Variedad zonas (H3)    6-10           n=  1763  y=1:  13.8%  IC95 [12.3, 15.5]
+Variedad zonas (H3)    11+            n=  5996  y=1:   4.4%  IC95 [ 3.9,  4.9]
+Progreso 14d (H2)      0 niveles      n=  2491  y=1:  20.9%  IC95 [19.4, 22.6]
+Progreso 14d (H2)      1              n=   684  y=1:  22.2%  IC95 [19.3, 25.5]
+Progreso 14d (H2)      2-3            n=   815  y=1:  17.8%  IC95 [15.3, 20.6]
+Progreso 14d (H2)      4+             n=  1517  y=1:  14.4%  IC95 [12.7, 16.2]
+
+=== 9c. Desajuste nivel-zona y tipo de contenido (zones.csv unido por nombre de zona) ===
+filas con zona unida: 1.0000
+Tipo de zona           Campo de batalla/arena n=   730  y=1:   6.4%  IC95 [ 4.9,  8.5]
+Tipo de zona           Ciudad         n=  2709  y=1:  13.3%  IC95 [12.1, 14.6]
+Tipo de zona           Mazmorra/banda n=   928  y=1:   2.8%  IC95 [ 1.9,  4.1]
+Tipo de zona           Zona abierta   n=  6956  y=1:  12.8%  IC95 [12.0, 13.6]
+filas con rango recomendado valido y nivel < 70: 3253 de 5507
+Desajuste nivel-zona (H5) por debajo del minimo  n=   176  y=1:  13.6%  IC95 [ 9.3, 19.5]
+Desajuste nivel-zona (H5) dentro del rango       n=  2426  y=1:  22.8%  IC95 [21.2, 24.5]
+Desajuste nivel-zona (H5) por encima del maximo  n=   651  y=1:  14.6%  IC95 [12.1, 17.5]
+
+=== 9b. Personajes nuevos (primera obs. nivel<=5, aparicion antes de oct.): ritmo de nivel en sus primeros 14 d ===
+nuevos elegibles: 3928 | tasa y=1 global 0.383
+Ritmo inicial          0-1 niveles    n=   533  y=1:  28.9%  IC95 [25.2, 32.9]
+Ritmo inicial          2-3            n=   135  y=1:  63.0%  IC95 [54.6, 70.6]
+Ritmo inicial          4-6            n=   493  y=1:  62.9%  IC95 [58.5, 67.0]
+Ritmo inicial          7+             n=  2767  y=1:  34.5%  IC95 [32.7, 36.3]

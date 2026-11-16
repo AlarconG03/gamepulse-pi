@@ -1,0 +1,7 @@
+politica,intervenciones,abandonos_alcanzados,beneficio_neto_USD
+Sin modelo (no intervenir),0,0,0.0
+Modelo (LightGBM),2239,1616,5033.0
+Heurística de recencia,2239,1128,2837.0
+Azar,2239,469,-128.0
+Intervenir a todos,22380,4378,-2679.0
+Modelo con umbral 0.24,5326,2905,7746.0

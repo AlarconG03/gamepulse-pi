@@ -1,0 +1,164 @@
+{
+  "A_cobertura_diaria": {
+    "dias_calendario": 366,
+    "dias_con_datos": 352,
+    "dias_sin_datos": [
+      "2008-04-04",
+      "2008-04-05",
+      "2008-04-06",
+      "2008-05-01",
+      "2008-05-02",
+      "2008-05-03",
+      "2008-05-04",
+      "2008-05-05",
+      "2008-05-17",
+      "2008-05-18",
+      "2008-06-14",
+      "2008-06-15",
+      "2008-06-16",
+      "2008-06-17"
+    ],
+    "dias_sin_cobertura": [
+      "2008-03-27",
+      "2008-04-03",
+      "2008-04-04",
+      "2008-04-05",
+      "2008-04-06",
+      "2008-05-01",
+      "2008-05-02",
+      "2008-05-03",
+      "2008-05-04",
+      "2008-05-05",
+      "2008-05-17",
+      "2008-05-18",
+      "2008-06-13",
+      "2008-06-14",
+      "2008-06-15",
+      "2008-06-16",
+      "2008-06-17",
+      "2008-10-23",
+      "2008-11-18"
+    ],
+    "registros_dia_mediana": 29390.0,
+    "personajes_dia_mediana": 1928.0
+  },
+  "B_cadencia": {
+    "pasadas_totales": 42801,
+    "min_entre_pasadas_mediana": 10.02,
+    "pasadas_dia_mediana_por_mes": {
+      "1": 142.0,
+      "2": 142.0,
+      "3": 142.0,
+      "4": 141.0,
+      "5": 142.0,
+      "6": 140.0,
+      "7": 139.0,
+      "8": 142.0,
+      "9": 142.0,
+      "10": 141.5,
+      "11": 92.0,
+      "12": 90.0
+    },
+    "huecos_por_tipo": {
+      "hueco corto": 130,
+      "mantenimiento semanal (jueves)": 67,
+      "caída del colector (>= 24 h)": 7
+    },
+    "hueco_maximo_horas": 143.9,
+    "top5_huecos": [
+      {
+        "inicio": "2008-04-30 17:02:02",
+        "fin": "2008-05-06 16:56:07",
+        "horas": "143.9"
+      },
+      {
+        "inicio": "2008-06-13 04:16:35",
+        "fin": "2008-06-18 11:15:48",
+        "horas": "126.99"
+      },
+      {
+        "inicio": "2008-04-03 01:52:35",
+        "fin": "2008-04-07 10:43:48",
+        "horas": "104.85"
+      },
+      {
+        "inicio": "2008-05-16 17:42:46",
+        "fin": "2008-05-19 10:43:48",
+        "horas": "65.02"
+      },
+      {
+        "inicio": "2008-06-22 04:44:58",
+        "fin": "2008-06-23 18:16:37",
+        "horas": "37.53"
+      }
+    ]
+  },
+  "C_saltos": {
+    "n_saltos": 640975,
+    "%_salto=1dia": 68.99,
+    "%_salto<=7": 91.58,
+    "%_salto>=30": 2.31,
+    "p95": 13.0,
+    "p99": 63.0
+  },
+  "C_tasa_retorno": [
+    {
+      "d_inactivo": 3,
+      "rachas": 116615,
+      "%_vuelve_algun_momento": 79.7,
+      "%_vuelve_en_60d_siguientes": 74.2
+    },
+    {
+      "d_inactivo": 7,
+      "rachas": 70736,
+      "%_vuelve_algun_momento": 67.3,
+      "%_vuelve_en_60d_siguientes": 58.9
+    },
+    {
+      "d_inactivo": 14,
+      "rachas": 48382,
+      "%_vuelve_algun_momento": 54.5,
+      "%_vuelve_en_60d_siguientes": 43.7
+    },
+    {
+      "d_inactivo": 21,
+      "rachas": 38005,
+      "%_vuelve_algun_momento": 48.2,
+      "%_vuelve_en_60d_siguientes": 36.0
+    },
+    {
+      "d_inactivo": 30,
+      "rachas": 29502,
+      "%_vuelve_algun_momento": 43.9,
+      "%_vuelve_en_60d_siguientes": 30.4
+    },
+    {
+      "d_inactivo": 45,
+      "rachas": 24116,
+      "%_vuelve_algun_momento": 35.9,
+      "%_vuelve_en_60d_siguientes": 22.7
+    },
+    {
+      "d_inactivo": 60,
+      "rachas": 20847,
+      "%_vuelve_algun_momento": 30.4,
+      "%_vuelve_en_60d_siguientes": 17.9
+    },
+    {
+      "d_inactivo": 90,
+      "rachas": 16187,
+      "%_vuelve_algun_momento": 23.2,
+      "%_vuelve_en_60d_siguientes": 12.9
+    }
+  ],
+  "C_saltos_largos_ajustados": {
+    "saltos_>=30": 14777,
+    "%_con_algun_dia_sin_cobertura": 72.5,
+    "%_que_bajan_de_30_dias_observados": 8.7
+  },
+  "historial_por_personaje": {
+    "personajes": 37354,
+    "dias_activos_p50": 2.0,
+    "%_personajes_1_dia": 43.5
+  }
+}

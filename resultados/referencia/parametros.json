@@ -1,0 +1,22 @@
+{
+  "horizonte_dias": 30,
+  "eleg_dias": 7,
+  "min_dias_hist": 2,
+  "umbral_cobertura": 0.2,
+  "min_dias_cubiertos_eleg": 5,
+  "primer_corte": "2008-02-04",
+  "val_ini": "2008-08-25",
+  "val_fin": "2008-09-22",
+  "test_ini": "2008-10-27",
+  "n_folds": 3,
+  "semanas_por_fold": 5,
+  "k_frac": 0.1,
+  "k_segmentos": 5,
+  "seed": 42,
+  "familias": [
+    "Regresión logística",
+    "Random Forest",
+    "LightGBM"
+  ],
+  "src": "data/plata_wowah.parquet"
+}

@@ -1,0 +1,15 @@
+metrica,valor,nota
+filas de prueba en nivel máximo,5893.0,
+% de la prueba en nivel máximo,0.263,
+% del 10 % priorizado (lista global) en nivel máximo,0.017,
+tasa de y = 1 en nivel máximo,0.059,
+ROC-AUC dentro del grupo,0.863,
+"precisión@10 % dentro del grupo (promedio por corte, como el pipeline)",0.161,
+recall@10 % dentro del grupo (promedio por corte),0.264,
+corte sin ningún y = 1 en el grupo: 24/11/2008,9.0,filas en el grupo
+corte sin ningún y = 1 en el grupo: 01/12/2008,134.0,filas en el grupo
+"precisión@10 % dentro del grupo, sin los cortes sin positivos",0.268,
+"recall@10 % dentro del grupo, sin los cortes sin positivos",0.44,
+nivel 70: tasa de y = 1 antes de la expansión,0.061,5750 filas
+nivel 70: tasa de y = 1 después de la expansión,0.113,3942 filas
+nivel 70 después de la expansión: ROC-AUC,0.763,

@@ -1,0 +1,6 @@
+modelo,tasa_base_validacion,PR_AUC_validacion,lift_validacion,tasa_base_prueba,PR_AUC_prueba,lift_prueba,lift@K_prueba
+Línea base (recencia),0.1324,0.3563,2.69,0.1956,0.4497,2.3,2.58
+Regresión logística,0.1324,0.4779,3.61,0.1956,0.5849,2.99,3.47
+Random Forest,0.1324,0.5157,3.9,0.1956,0.6247,3.19,3.72
+LightGBM,0.1324,0.529,4.0,0.1956,0.6179,3.16,3.69
+Ensamble,0.1324,0.5225,3.95,0.1956,0.6225,3.18,3.67

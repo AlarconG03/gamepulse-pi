@@ -1,0 +1,13 @@
+senal,descripcion,accion_posible,metrica_de_evaluacion
+ausencia_reciente,Lleva varios días sin conectarse,Mensaje o recompensa de regreso en los primeros días de ausencia,% que vuelve en 7 días
+irregularidad,Juega de forma irregular,Recordatorios alineados a sus días habituales de juego,Días activos en las 4 semanas siguientes
+baja_frecuencia,Pocos días activos en el último mes,Evento de reactivación o recompensa por conexión diaria,% de días activos en 30 días
+poco_tiempo_de_juego,Sesiones cortas o pocas horas,Misiones cortas y objetivos alcanzables en una sesión,Horas por semana
+caida_reciente,Su actividad cayó frente a semanas anteriores,Contacto temprano: evento o contenido nuevo esa semana,Recuperación de la tendencia en 14 días
+progresion,Progresión lenta o estancada,"Revisar tutoriales, orientación o dificultad; en el tope, contenido de nivel máximo",Niveles ganados o actividades de tope en 30 días
+poca_variedad,Poca variedad de zonas y actividades,"Sugerir mazmorras, PvP o zonas nuevas acordes a su nivel",Zonas distintas visitadas en 30 días
+vinculo_social,Sin gremio o con gremio poco activo,Recomendación de gremios activos y eventos sociales,% que se une a un gremio y sigue activo a 30 días
+poco_historial,Jugador o personaje nuevo,Acompañamiento de los primeros días (onboarding),Retención a 30 días de nuevos
+patron_horario,Concentra su juego en fines de semana,Programar eventos en sus horarios de juego,Asistencia a eventos
+perfil_personaje,Clase o raza del personaje,No accionable directamente; usar para segmentar campañas,-
+aparcado_en_ciudad,Pasa casi todo su tiempo en ciudades (posible personaje secundario),"Verificar si es un personaje secundario de un jugador activo antes de intervenir; si no, proponer actividades fuera de ciudad",% con actividad fuera de ciudad en 30 días

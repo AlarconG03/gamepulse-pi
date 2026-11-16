@@ -1,0 +1,7 @@
+subpoblacion,filas_entrenamiento,filas_prueba,tasa_churn_prueba,PR_AUC_modelo_global,PR_AUC_modelo_especializado,diferencia
+Nuevos (< 28 días),14793,3564,0.339,0.73,0.733,0.002
+Establecidos (>= 28 días),104925,18816,0.168,0.563,0.561,-0.002
+En nivel máximo,57814,5893,0.059,0.282,0.271,-0.01
+Subiendo de nivel,61904,16487,0.244,0.641,0.636,-0.004
+Sin gremio,34315,7163,0.335,0.681,0.673,-0.009
+Con gremio,85403,15217,0.13,0.526,0.529,0.003

@@ -16,5 +16,6 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY
 CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-Los datos de World of Warcraft Avatar History no forman parte de esta licencia: pertenecen a sus autores
-(Lee et al., 2011) y se obtienen de Kaggle bajo los términos publicados allí.
+El código de este repositorio está bajo la licencia MIT. Los datos de World of Warcraft Avatar History no están
+incluidos en esta licencia. Se obtienen de Kaggle (Myles O'Neill), donde figuran con licencia CC0: Public Domain.
+El conjunto original es de Lee et al. (2011).

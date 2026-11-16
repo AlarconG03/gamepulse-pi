@@ -59,7 +59,7 @@ Guía completa, paso a paso, con capturas: **[docs/prefect.md](docs/prefect.md)*
 ├── requirements.txt           # dependencias (alternativa a pyproject)
 ├── requirements-lock.txt      # versiones exactas de la corrida de referencia
 ├── packages.txt               # librería del sistema para LightGBM en Streamlit Cloud
-├── LICENSE                    # MIT (código); los datos de WoWAH tienen sus propios términos
+├── LICENSE                    # MIT (código); los datos de WoWAH son CC0 según Kaggle
 ├── .gitignore                 # excluye corridas, cachés, secretos y ZIPs (la plata sí se versiona)
 │
 ├── data/                      # capa plata (plata_wowah.parquet) y de dónde sale
@@ -126,5 +126,7 @@ Versiones exactas de la corrida de referencia: `requirements-lock.txt`.
 ## Datos y secretos
 
 - La capa plata está en `data/`. El archivo original (`wowah_data.csv`, 643 MB) y `zones.csv` no se versionan: se descargan de Kaggle (ver `data/README.md`).
+- Los datos de WoWAH (O'Neill en Kaggle; Lee et al., 2011) tienen licencia CC0: Public Domain según Kaggle y no
+  están bajo la licencia MIT del código.
 - Ninguna credencial está en el repositorio. El token de Kaggle vive en AWS Secrets Manager; la URL y la clave
   de la API van en `tablero/.streamlit/secrets.toml` (ignorado por git) o en los secretos de Streamlit Cloud.

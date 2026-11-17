@@ -29,7 +29,7 @@ resultados (métricas, matriz de recomendaciones, etc.).
 Requisitos: Python 3.10 o superior, ~8 GB de RAM.
 
 ```bash
-cd <nombre-del-repo>
+cd gamepulse-pi
 python -m venv .venv
 # Windows:            .venv\Scripts\activate
 # Mac / Linux:        source .venv/bin/activate

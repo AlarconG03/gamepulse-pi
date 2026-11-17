@@ -15,7 +15,7 @@ Este repositorio contiene todo el proyecto:
 - **Tablero** (`tablero/`): Streamlit, lee la instantánea exportada de Athena y pide el detalle de cada caso a la API.
 - **Documento de entrega** (`docs/documento/`) y los scripts que justifican sus cifras (`analisis_adicional/`).
 
-Tablero publicado: `<url-de-streamlit>` · Correrlo en local o publicarlo: [docs/DESPLIEGUE_STREAMLIT.md](docs/DESPLIEGUE_STREAMLIT.md).
+Tablero publicado: <https://gamepulse-pi.streamlit.app> · Correrlo en local o publicarlo: [docs/DESPLIEGUE_STREAMLIT.md](docs/DESPLIEGUE_STREAMLIT.md).
 
 ## Resultado principal (corrida de referencia)
 
@@ -37,7 +37,7 @@ Detalle en [`resultados/referencia/`](resultados/referencia/).
 ## Inicio rápido
 
 ```bash
-git clone https://github.com/<usuario>/<nombre-del-repo>.git && cd <nombre-del-repo>
+git clone https://github.com/AlarconG03/gamepulse-pi.git && cd gamepulse-pi
 python -m venv .venv && source .venv/bin/activate        # Windows: .venv\Scripts\activate
 pip install -e ".[dev]"                                   # instala el paquete y sus dependencias
 # la capa plata ya viene en data/plata_wowah.parquet (ver data/README.md)
@@ -53,7 +53,7 @@ Guía completa, paso a paso, con capturas: **[docs/prefect.md](docs/prefect.md)*
 ## Estructura
 
 ```
-<nombre-del-repo>/
+gamepulse-pi/
 ├── README.md                  # este archivo
 ├── pyproject.toml             # paquete instalable (pip install -e .) y configuración de pytest
 ├── requirements.txt           # dependencias (alternativa a pyproject)

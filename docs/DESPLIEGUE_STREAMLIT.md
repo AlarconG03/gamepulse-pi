@@ -1,6 +1,6 @@
 # Tablero: correrlo en local o publicarlo en Streamlit Community Cloud
 
-Tablero publicado: `<url-de-streamlit>`
+Tablero publicado: <https://gamepulse-pi.streamlit.app>
 
 El tablero vive en `tablero/` y trae lo que necesita:
 
@@ -21,12 +21,12 @@ Requiere Python 3.10 o superior.
 1. Obtenga el código. Con git:
 
    ```bash
-   git clone https://github.com/<usuario>/<nombre-del-repo>.git
-   cd <nombre-del-repo>
+   git clone https://github.com/AlarconG03/gamepulse-pi.git
+   cd gamepulse-pi
    ```
 
-   O sin git: en GitHub, **Code → Download ZIP**, descomprima `<nombre-del-repo>-main.zip` y entre a la carpeta
-   `<nombre-del-repo>-main`.
+   O sin git: en GitHub, **Code → Download ZIP**, descomprima `gamepulse-pi-main.zip` y entre a la carpeta
+   `gamepulse-pi-main`.
 
 2. Cree un entorno e instale las dependencias del tablero:
 
@@ -50,7 +50,7 @@ Requiere Python 3.10 o superior.
 
 Requiere una cuenta de GitHub. Costo: gratis.
 
-1. Tenga el repositorio en su cuenta de GitHub: un *fork* de `<usuario>/<nombre-del-repo>` (botón **Fork**) o
+1. Tenga el repositorio en su cuenta de GitHub: un *fork* de `AlarconG03/gamepulse-pi` (botón **Fork**) o
    el repositorio original si es suyo.
 2. Entre a <https://share.streamlit.io> con su cuenta de GitHub y autorice el acceso.
 3. **Create app** → **Deploy a public app from GitHub**.

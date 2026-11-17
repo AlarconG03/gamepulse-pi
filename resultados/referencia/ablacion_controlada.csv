@@ -1,0 +1,2 @@
+familia,variables_excluidas,hiperparametros,n_folds,PR_AUC_cv_con,PR_AUC_cv_sin,diferencia_cv,PR_AUC_test_con,PR_AUC_test_sin,diferencia_test,ROC_AUC_test_con,ROC_AUC_test_sin
+LightGBM,"['antiguedad_censurada', 'dias_activos_hist', 'antiguedad_dias']","{'nl': 15, 'lr': 0.05, 'n': 300}",3,0.5133,0.4969,-0.0164,0.6179,0.6113,-0.0066,0.8691,0.867

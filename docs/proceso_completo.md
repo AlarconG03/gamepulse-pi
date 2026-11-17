@@ -1,9 +1,10 @@
 # GamePulse · Proceso completo del componente de aprendizaje automático
 
 > Documento de trabajo del equipo de modelado; la tabla de mejoras de la sección 10 quedó como estaba al escribirlo.
-> Después se hicieron cuatro mejoras: intervalos por bootstrap, lift, diagnóstico del nivel máximo (la precisión de
-> 0,16 estaba subestimada) y entrenamiento con el oro de Spark (`--oro`). Su estado y las cifras finales están en la
-> sección 4.5 del documento (`docs/documento/`).
+> Después se hicieron cinco mejoras: intervalos por bootstrap, lift, diagnóstico del nivel máximo (la precisión de
+> 0,16 estaba subestimada), entrenamiento con el oro de Spark (`--oro`) y una más dentro del pipeline: curva ROC
+> (fig9), ranking de cada variable por separado y ablación con los mismos hiperparámetros, comparada en validación.
+> Su estado y las cifras finales están en la sección 4.5 del documento (`docs/documento/`).
 
 Este documento explica, de punta a punta, qué hace el pipeline, por qué se tomó cada decisión, dónde está en el
 código, qué resultados da, qué se puede mejorar y qué falta. Cifras de la corrida de referencia
@@ -167,7 +168,8 @@ Del bloque de prueba, el 64 % de los personajes ya aparecía al entrenar y el 23
 - **10 % de mayor riesgo:** el 72 % de ellos efectivamente se va (3,7 veces el azar). Con 19,6 % de churn, el
   recall máximo posible en el 10 % es ~0,50; LightGBM logra 0,37.
 - **Estabilidad:** PR-AUC entre 0,59 y 0,65 en los 6 cortes de prueba, también después de la expansión (13/11).
-- **Ablación:** sin las variables que dependen del inicio del dataset, PR-AUC 0,611 (−0,007).
+- **Ablación:** sin las variables que dependen del inicio del dataset y con los mismos hiperparámetros, PR-AUC en
+  validación 0,497 frente a 0,513 (−0,016); en prueba, 0,611 (−0,007) (`ablacion_controlada.csv`).
 
 ![Curvas precisión-recall en prueba](../resultados/referencia/figuras/fig5_curvas_pr.png)
 
@@ -242,7 +244,7 @@ Los modelos especializados no mejoran: el modelo global ya distingue las subpobl
 
 ## 9. Orquestación y trazabilidad
 
-Todo corre como el flujo de Prefect `gamepulse-churn` (15 tareas, ~10 min). Cada corrida queda en el dashboard
+Todo corre como el flujo de Prefect `gamepulse-churn` (16 tareas, ~10 min). Cada corrida queda en el dashboard
 con estado, duración, logs y artefactos, y en `runs/<fecha>_<nombre>/` con parámetros, hash de datos, versiones,
 modelos, métricas y figuras. Hay controles que detienen la corrida: datos inválidos, fuga temporal o un modelo que
 no supera a la línea base. Guía: [prefect.md](prefect.md).
@@ -257,7 +259,8 @@ no supera a la línea base. Guía: [prefect.md](prefect.md).
 | `seleccionar-y-control-de-calidad` | Modelo elegido por validación |
 | `interpretar-y-recomendar` | SHAP, K-Means, matriz, scores por jugador |
 | `analizar-poblacion` | Embudo, panel, subpoblaciones, modelos especializados |
-| `ablacion-variables-censuradas`, `figuras`, `registrar-corrida` | Ablación, figuras, ficha e historial |
+| `ablacion-variables-censuradas`, `variables-individuales` | Ablación con los mismos hiperparámetros y ranking de cada variable (en validación) |
+| `figuras`, `registrar-corrida` | Figuras, ficha e historial |
 
 ## 10. Qué llevamos, qué se puede mejorar y qué falta
 
@@ -268,7 +271,7 @@ no supera a la línea base. Guía: [prefect.md](prefect.md).
 - Partición fuera de tiempo con embargo y validación móvil, con controles automáticos de fuga.
 - Tres familias de modelos, línea base y ensamble; evaluación global, por corte y por subpoblación.
 - Interpretación (SHAP), segmentación (K-Means) y matriz de recomendaciones.
-- Todo orquestado y trazable en Prefect, con 10 pruebas automáticas y resultados de referencia versionados.
+- Todo orquestado y trazable en Prefect, con 13 pruebas automáticas y resultados de referencia versionados.
 
 ### Qué se puede mejorar (en orden de impacto esperado)
 

@@ -1,12 +1,26 @@
-"""Interpretación del modelo: SHAP global y por jugador, perfiles K-Means y ablación de variables censuradas."""
+"""Interpretación del modelo: SHAP global y por jugador, perfiles K-Means, ablación controlada de variables
+censuradas y evaluación de cada variable por separado."""
 import numpy as np
 import pandas as pd
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.cluster import KMeans
-from sklearn.metrics import silhouette_score
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import (
+    silhouette_score,
+    roc_auc_score,
+    average_precision_score,
+)
 from . import logger
 from .config import ConfigModelado
-from .modelos import entrenar_familia, particion
+from .modelos import (
+    entrenar_familia,
+    evaluar_configuracion_fija,
+    particion,
+    folds_temporales,
+)
+from .dataset import columnas_modelo
 
 PERFIL = ["frac_dias_activos_28", "horas_por_dia_activo_28", "tendencia_horas", "nivel", "niveles_ganados_28",
           "entropia_zonas_28", "frac_ciudad_28", "frac_pvp_28", "frac_raid_28", "frac_mazmorra_28",
@@ -54,13 +68,126 @@ def perfiles_kmeans(data: pd.DataFrame, cfg: ConfigModelado, riesgo_test: np.nda
     return perf, pd.Series(seg, index=te.index, name="segmento"), pd.DataFrame(diag)
 
 
-def ablacion_censuradas(data: pd.DataFrame, cfg: ConfigModelado, familia: str, base_test: dict) -> dict:
-    """Reentrena `familia` sin las variables que dependen del inicio del dataset y compara en prueba."""
-    cfg1 = ConfigModelado(**{**cfg.__dict__, "n_folds": 1})
-    r = entrenar_familia(familia, data, cfg1, excluir=CENSURADAS)
-    dif = round(r["metricas_test"]["PR_AUC"] - base_test["PR_AUC"], 4)
-    logger.info("Ablación %s sin %s: PR-AUC prueba %.4f (diferencia %+.4f)", familia, CENSURADAS,
-                r["metricas_test"]["PR_AUC"], dif)
-    return {"familia": familia, "excluidas": CENSURADAS, "PR_AUC_con": base_test["PR_AUC"],
-            "PR_AUC_sin": r["metricas_test"]["PR_AUC"], "diferencia": dif,
-            "precision@K_con": base_test["precision@K"], "precision@K_sin": r["metricas_test"]["precision@K"]}
+
+def ablacion_controlada(
+    data: pd.DataFrame,
+    cfg: ConfigModelado,
+    mejor: dict
+) -> dict:
+    """Compara el modelo con y sin variables censuradas."""
+
+    # Recuperar los resultados originales de validación
+    params = mejor["params"]
+    cv_original = next(
+        c for c in mejor["cv"]
+        if c["params"] == params
+    )
+
+    # Reentrenar sin las variables usando los mismos parametros
+    resultado = evaluar_configuracion_fija(
+        familia=mejor["familia"],
+        data=data,
+        cfg=cfg,
+        params=params,
+        excluir=CENSURADAS,
+    )
+
+    # Comparar el rendimiento en validación temporal
+    cv_con = float(cv_original["PR_AUC_media"])
+    cv_sin = float(resultado["PR_AUC_cv_media"])
+
+    # Conservar la comparación en prueba como resultado secundario
+    test_con = float(mejor["metricas_test"]["PR_AUC"])
+    test_sin = float(resultado["metricas_test"]["PR_AUC"])
+
+    return {
+        "familia": mejor["familia"],
+        "variables_excluidas": CENSURADAS,
+        "hiperparametros": params,
+        "n_folds": cfg.n_folds,
+        "PR_AUC_cv_con": cv_con,
+        "PR_AUC_cv_sin": cv_sin,
+        "diferencia_cv": round(cv_sin - cv_con, 4),
+        "PR_AUC_test_con": test_con,
+        "PR_AUC_test_sin": test_sin,
+        "diferencia_test": round(test_sin - test_con, 4),
+        "ROC_AUC_test_con": mejor["metricas_test"]["ROC_AUC"],
+        "ROC_AUC_test_sin": resultado["metricas_test"]["ROC_AUC"],
+    }
+
+
+def evaluar_variables_individuales(
+    data: pd.DataFrame,
+    cfg: ConfigModelado
+) -> pd.DataFrame:
+    """Evalúa cada variable por separado usando validación temporal."""
+
+    num, cat = columnas_modelo(data)
+    folds = folds_temporales(data, cfg)
+    resultados = []
+
+    for columna in num + cat:
+        es_categorica = columna in cat
+
+        # Preparar la variable según su tipo
+        if es_categorica:
+            transformacion = (
+                "cat",
+                OneHotEncoder(handle_unknown="ignore"),
+                [columna],
+            )
+        else:
+            transformacion = (
+                "num",
+                StandardScaler(),
+                [columna],
+            )
+
+        aucs = []
+        aps = []
+
+        # Evaluar cada variable en los mismos bloques temporales
+        for bloque in folds:
+            modelo = Pipeline([
+                ("pre", ColumnTransformer([transformacion])),
+                ("clf", LogisticRegression(
+                    C=1.0,
+                    max_iter=400,
+                    class_weight="balanced",
+                )),
+            ])
+
+            modelo.fit(
+                bloque["train"][[columna]],
+                bloque["train"]["churn"],
+            )
+
+            scores = modelo.predict_proba(
+                bloque["val"][[columna]]
+            )[:, 1]
+
+            aucs.append(roc_auc_score(
+                bloque["val"]["churn"], scores
+            ))
+
+            aps.append(average_precision_score(
+                bloque["val"]["churn"], scores
+            ))
+
+        resultados.append({
+            "variable": columna,
+            "tipo": "categorica" if es_categorica else "numerica",
+            "ROC_AUC_cv_media": round(float(np.mean(aucs)), 4),
+            "PR_AUC_cv_media": round(float(np.mean(aps)), 4),
+            "n_folds": len(folds),
+        })
+
+    # Ordenar las variables por ROC-AUC medio
+    return (
+        pd.DataFrame(resultados)
+        .sort_values(
+            ["ROC_AUC_cv_media", "PR_AUC_cv_media"],
+            ascending=False,
+        )
+        .reset_index(drop=True)
+    )

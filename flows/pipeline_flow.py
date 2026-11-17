@@ -249,11 +249,26 @@ def analizar_poblacion(src: str, data_path: str, cfg_et: dict, cfg: dict, result
 
 
 @task(name="ablacion-variables-censuradas", cache_policy=NO_CACHE)
-def ablacion(data_path: str, cfg: dict, mejor: dict) -> dict:
-    data = mod.cargar_dataset(data_path)
-    r = interp.ablacion_censuradas(data, ConfigModelado(**cfg), mejor["familia"], mejor["metricas_test"])
-    create_table_artifact(key="gamepulse-ablacion", description="Modelo con y sin variables censuradas", table=[r])
+def ablacion(data_path: str, cfg: dict, mejor: dict, carpeta: str) -> dict:
+    """Mismo modelo y mismos hiperparámetros, con y sin las variables censuradas; se compara en validación."""
+    r = interp.ablacion_controlada(mod.cargar_dataset(data_path), ConfigModelado(**cfg), mejor)
+    pd.DataFrame([r]).to_csv(Path(carpeta) / "ablacion_controlada.csv", index=False)
+    create_table_artifact(key="gamepulse-ablacion", description="Modelo con y sin variables censuradas (mismos hiperparámetros)",
+                          table=[{k: r[k] for k in ("familia", "PR_AUC_cv_con", "PR_AUC_cv_sin", "diferencia_cv",
+                                                    "PR_AUC_test_con", "PR_AUC_test_sin")}])
     return r
+
+
+@task(name="variables-individuales", cache_policy=NO_CACHE)
+def variables_individuales(data_path: str, cfg: dict, carpeta: str) -> dict:
+    """Capacidad predictiva de cada variable por separado, sólo con los bloques de validación."""
+    rk = interp.evaluar_variables_individuales(mod.cargar_dataset(data_path), ConfigModelado(**cfg))
+    rk.to_csv(Path(carpeta) / "variables_individuales_cv.csv", index=False)
+    create_table_artifact(key="gamepulse-variables-individuales", description="Ranking por ROC-AUC en validación",
+                          table=rk.head(10).to_dict("records"))
+    m = rk.iloc[0]
+    return {"mejor_variable": str(m["variable"]), "ROC_AUC_cv_media": float(m["ROC_AUC_cv_media"]),
+            "PR_AUC_cv_media": float(m["PR_AUC_cv_media"]), "n_variables": len(rk)}
 
 
 @task(name="figuras", cache_policy=NO_CACHE)
@@ -270,6 +285,7 @@ def figuras(carpeta: str, aud_dir: str, data_path: str, cfg: dict, base: dict, r
     rutas.append(fig.shap_top(interp_res["importancia"], out / "fig4_shap_top12.png"))
     curvas = {"Línea base": base["scores_test"], **{r["familia"]: r["scores_test"] for r in resultados}}
     rutas.append(fig.curvas_pr(test["churn"].values, curvas, out / "fig5_curvas_pr.png"))
+    rutas.append(fig.curvas_roc(test["churn"].values, curvas, out / "fig9_curvas_roc.png"))
     get_run_logger().info("%d figuras generadas en %s", len(rutas), out)
     return rutas
 
@@ -277,7 +293,7 @@ def figuras(carpeta: str, aud_dir: str, data_path: str, cfg: dict, base: dict, r
 @task(name="registrar-corrida", cache_policy=NO_CACHE)
 def registrar(carpeta: str, salida: str, params: dict, datos: dict, dset: dict, base: dict, resultados: list,
               mejor: dict, abl: dict | None, interp_res: dict, por_corte: pd.DataFrame,
-              ens: dict | None = None) -> dict:
+              ens: dict | None = None, univariadas: dict | None = None) -> dict:
     out = Path(carpeta)
     tabla = mod.tabla_resultados([base] + resultados + ([ens] if ens else []))
     tabla.to_csv(out / "resultados_modelos.csv", index=False)
@@ -291,7 +307,8 @@ def registrar(carpeta: str, salida: str, params: dict, datos: dict, dset: dict, 
     ficha = {**meta, "versiones": reg.versiones(), "datos": datos, "dataset": dset,
              "modelo_elegido": mejor["familia"], "hiperparametros": mejor["params"],
              "metricas_validacion": mejor["metricas_val"], "metricas_prueba": mt,
-             "linea_base_prueba": base["metricas_test"], "ablacion": abl}
+             "linea_base_prueba": base["metricas_test"], "ablacion": abl,
+             "variables_individuales": univariadas}
     reg.guardar_json(ficha, out / "ficha_corrida.json")
     reg.anexar_historial(salida, {
         "fecha": pd.Timestamp.now().isoformat(timespec="seconds"), "flow_run": flow_run.name,
@@ -312,7 +329,8 @@ def registrar(carpeta: str, salida: str, params: dict, datos: dict, dset: dict, 
           f"- **Datos:** sha256 `{datos['sha256'][:16]}…` · {datos['filas']:,} filas",
           f"- **Carpeta de la corrida:** `{out}`"]
     if abl:
-        md.append(f"- **Ablación sin variables censuradas:** PR-AUC {abl['PR_AUC_sin']:.3f} (con: {abl['PR_AUC_con']:.3f})")
+        md.append(f"- **Ablación sin variables censuradas:** PR-AUC en validación {abl['PR_AUC_cv_sin']:.3f} "
+                  f"(con: {abl['PR_AUC_cv_con']:.3f})")
     md += ["", "## Métricas por modelo (prueba)", "", "| Modelo | PR-AUC val (media CV) | PR-AUC prueba | precisión@K | recall@K |",
            "| --- | --- | --- | --- | --- |"]
     for _, r in tabla.iterrows():
@@ -391,12 +409,13 @@ def pipeline_churn(
         resultados.append(entrenar("LightGBM", dset["archivo"], cfg_m))      # necesario para SHAP
     interp_res = interpretar(dset["archivo"], cfg_m, resultados, mejor, str(carpeta))
     pob_res = analizar_poblacion(str(src_p), dset["archivo"], c_et.__dict__, cfg_m, resultados, mejor, str(carpeta))
-    abl = ablacion(dset["archivo"], cfg_m, mejor) if ejecutar_ablacion else None
+    abl = ablacion(dset["archivo"], cfg_m, mejor, str(carpeta)) if ejecutar_ablacion else None
+    uni = variables_individuales(dset["archivo"], cfg_m, str(carpeta))
     data = mod.cargar_dataset(dset["archivo"])
     por_corte = mod.desempeno_por_corte(mod.particion(data, c_mod), mejor, base, k_frac)
     figuras(str(carpeta), str(aud_dir), dset["archivo"], cfg_m, base, resultados, interp_res)
     ficha = registrar(str(carpeta), str(salida_p), params, datos, dset, base, resultados, mejor, abl,
-                      interp_res, por_corte, ens)
+                      interp_res, por_corte, ens, uni)
     log.info("Listo. Modelo %s, PR-AUC prueba %.3f. Resultados en %s", mejor["familia"],
              mejor["metricas_test"]["PR_AUC"], carpeta)
     return {"carpeta": str(carpeta), "modelo": ficha["modelo_elegido"], "metricas_prueba": ficha["metricas_prueba"]}

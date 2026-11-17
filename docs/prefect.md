@@ -20,8 +20,9 @@ resultados (métricas, matriz de recomendaciones, etc.).
 | 8 | `seleccionar-y-control-de-calidad` | Elige el modelo por validación (nunca por la prueba) | Se detiene con `ErrorCalidadModelo` si no supera a la línea base |
 | 9 | `interpretar-y-recomendar` | SHAP, perfiles K-Means, matriz de recomendaciones, señales y acción por jugador | — |
 | 10 | `analizar-poblacion` | Embudo de la población por corte, jugadores nunca vistos, desempeño por subpoblación, modelos especializados | — |
-| 10b | `ablacion-variables-censuradas` | Reentrena sin las variables que dependen del inicio del dataset | — |
-| 11 | `figuras` | Figuras PNG para el informe (fig1–fig5; `analizar-poblacion` agrega fig7 y fig8) | — |
+| 10b | `ablacion-variables-censuradas` | Mismo modelo y mismos hiperparámetros, con y sin las variables que dependen del inicio del dataset; compara en validación (`ablacion_controlada.csv`) | — |
+| 10c | `variables-individuales` | Una regresión logística por variable en los bloques de validación; ranking por ROC-AUC (`variables_individuales_cv.csv`) | — |
+| 11 | `figuras` | Figuras PNG para el informe (fig1–fig5 y fig9, curvas ROC; `analizar-poblacion` agrega fig7 y fig8) | — |
 | 12 | `registrar-corrida` | Guarda modelos, ficha de la corrida, historial y el reporte en markdown | — |
 
 ## 1. Instalar (una sola vez)
@@ -34,7 +35,7 @@ python -m venv .venv
 # Windows:            .venv\Scripts\activate
 # Mac / Linux:        source .venv/bin/activate
 pip install -e ".[dev]"          # instala el paquete gamepulse_ml, Prefect y pytest
-pytest -q                        # 10 pruebas con datos sintéticos (~5 s)
+pytest -q                        # 13 pruebas con datos sintéticos (~10 s)
 ```
 
 La capa plata ya viene en `data/plata_wowah.parquet` (origen y verificación en `data/README.md`).
@@ -103,7 +104,8 @@ python flows/pipeline_flow.py --oro data/oro                # tabla de modelado 
 | `gamepulse-cv-<modelo>` | PR-AUC de cada configuración de hiperparámetros por bloque |
 | `gamepulse-shap` | Importancia global de variables |
 | `gamepulse-matriz-recomendaciones` | Perfil → prioridad → rasgos → acción posible |
-| `gamepulse-ablacion` | Modelo con y sin variables censuradas |
+| `gamepulse-ablacion` | Modelo con y sin variables censuradas (mismos hiperparámetros; PR-AUC en validación y en prueba) |
+| `gamepulse-variables-individuales` | Las 10 variables que mejor predicen por separado (ROC-AUC en validación) |
 | `gamepulse-poblacion` | Embudo de la población (promedio por corte) y estructura del panel |
 | `gamepulse-subpoblaciones` | Desempeño del modelo por subpoblación en prueba |
 | `gamepulse-modelos-especializados` | Un modelo por subpoblación frente al modelo global |
@@ -131,6 +133,7 @@ runs/
     ├── scores_prueba.parquet    # riesgo por jugador y corte, segmento, 3 señales, acción sugerida, prioridad top-K
     ├── matriz_recomendaciones.csv, catalogo_senales_acciones.csv
     ├── importancia_shap_prueba.csv, perfiles_kmeans_prueba.csv, kmeans_diagnostico_k.csv
+    ├── ablacion_controlada.csv, variables_individuales_cv.csv
     ├── modelos/*.joblib         # cada modelo con sus columnas, hiperparámetros, umbral y metadatos
     └── figuras/*.png
 ```

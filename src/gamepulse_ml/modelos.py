@@ -189,6 +189,98 @@ def entrenar_familia(nombre: str, data: pd.DataFrame, cfg: ConfigModelado, exclu
     return res
 
 
+def evaluar_configuracion_fija(
+    familia: str,
+    data: pd.DataFrame,
+    cfg: ConfigModelado,
+    params: dict,
+    excluir=()
+) -> dict:
+    """Evalúa un modelo con hiperparámetros fijos y validación temporal."""
+
+    if familia not in GRID:
+        raise ValueError(
+            f"Familia no admitida para comparacion fija: {familia}"
+        )
+
+    fabrica, _ = GRID[familia]
+
+    # Seleccionar las variables disponibles despues de las exclusiones
+    num, cat = columnas_modelo(data, excluir)
+    cat = [c for c in cat if c not in excluir]
+    cols = num + cat
+
+    # Utilizar los mismos bloques temporales del entrenamiento original
+    folds = folds_temporales(data, cfg)
+    p = particion(data, cfg)
+
+    aps = []
+    rocs = []
+    scores_val = None
+
+    # Entrenar y evaluar usando siempre los mismos hiperparámetros
+    for bloque in folds:
+        modelo = fabrica(num, cat, **params)
+
+        modelo.fit(
+            bloque["train"][cols],
+            bloque["train"]["churn"]
+        )
+
+        score = modelo.predict_proba(
+            bloque["val"][cols]
+        )[:, 1]
+
+        aps.append(
+            float(average_precision_score(
+                bloque["val"]["churn"], score
+            ))
+        )
+
+        rocs.append(
+            float(roc_auc_score(
+                bloque["val"]["churn"], score
+            ))
+        )
+
+        scores_val = score
+
+    # Calcular el umbral usando solo los datos de validación
+    umbral = umbral_f1(
+        p["validacion"]["churn"],
+        scores_val
+    )
+
+    # Reentrenar con los datos disponibles antes de la prueba
+    final = fabrica(num, cat, **params)
+
+    final.fit(
+        p["entren_valid"][cols],
+        p["entren_valid"]["churn"]
+    )
+
+    scores_test = final.predict_proba(
+        p["prueba"][cols]
+    )[:, 1]
+
+    return {
+        "familia": familia,
+        "params": dict(params),
+        "excluidas": list(excluir),
+        "columnas": cols,
+        "PR_AUC_folds": [round(v, 4) for v in aps],
+        "ROC_AUC_folds": [round(v, 4) for v in rocs],
+        "PR_AUC_cv_media": round(float(np.mean(aps)), 4),
+        "ROC_AUC_cv_media": round(float(np.mean(rocs)), 4),
+        "metricas_val": metricas(
+            p["validacion"], scores_val, cfg.k_frac
+        ),
+        "metricas_test": metricas(
+            p["prueba"], scores_test, cfg.k_frac, umbral
+        )
+    }
+
+
 ENSAMBLE = "Ensamble (promedio de rangos)"
 
 

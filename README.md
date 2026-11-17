@@ -41,7 +41,7 @@ git clone https://github.com/AlarconG03/gamepulse-pi.git && cd gamepulse-pi
 python -m venv .venv && source .venv/bin/activate        # Windows: .venv\Scripts\activate
 pip install -e ".[dev]"                                   # instala el paquete y sus dependencias
 # la capa plata ya viene en data/plata_wowah.parquet (ver data/README.md)
-pytest -q                                                 # 10 pruebas, ~5 s, no necesitan los datos
+pytest -q                                                 # 13 pruebas, ~10 s, no necesitan los datos
 
 prefect server start                                      # terminal 1: dashboard en http://127.0.0.1:4200
 prefect config set PREFECT_API_URL=http://127.0.0.1:4200/api   # terminal 2, una sola vez
@@ -72,18 +72,19 @@ gamepulse-pi/
 │   ├── dataset.py             # etiqueta + 37 variables por personaje y fecha de corte
 │   ├── zonas.py               # clasificación de zonas (ciudad, PvP, raid, mazmorra, mundo)
 │   ├── modelos.py             # partición con embargo, origen móvil, modelos, ensamble, métricas
-│   ├── interpretacion.py      # SHAP, K-Means, ablación
+│   ├── interpretacion.py      # SHAP, K-Means, ablación, ranking de variables
 │   ├── poblacion.py           # embudo de población, panel, subpoblaciones, modelos especializados
 │   ├── recomendaciones.py     # matriz perfil -> señal -> acción posible
 │   ├── figuras.py             # gráficas del informe
 │   └── registro.py            # trazabilidad local (versiones, historial)
 │
 ├── flows/                     # orquestación con Prefect
-│   ├── pipeline_flow.py       # flujo principal gamepulse-churn (15 tareas)
+│   ├── pipeline_flow.py       # flujo principal gamepulse-churn (16 tareas)
 │   ├── sensibilidad_flow.py   # sensibilidad de la etiqueta (21/30/45/60 días) y de la población
 │   └── desplegar.py           # deployments: reentrenamiento semanal programado
 │
-├── tests/test_pipeline.py     # 10 pruebas con datos sintéticos (etiqueta, fuga, población, calidad de datos)
+├── tests/                     # 13 pruebas con datos sintéticos (etiqueta, fuga, población, calidad de datos,
+│                              # curvas ROC, ranking de variables y ablación)
 │
 ├── docs/
 │   ├── prefect.md             # cómo ejecutar, leer el dashboard y desplegar
@@ -106,7 +107,8 @@ gamepulse-pi/
 ├── resultados/referencia/     # salidas de la corrida de referencia (versionadas, ~2 MB)
 │   ├── resultados_modelos.csv, desempeno_por_corte_prueba.csv, ficha_corrida.json
 │   ├── matriz_recomendaciones.csv, scores_prueba.parquet   # entrada para visualización
-│   ├── sensibilidad_etiqueta.csv, auditoria/, figuras/, modelo/lightgbm.joblib
+│   ├── ablacion_controlada.csv, variables_individuales_cv.csv
+│   ├── sensibilidad_etiqueta.csv, auditoria/, figuras/ (fig1–fig9), modelo/lightgbm.joblib
 │   └── README.md
 │
 └── runs/                      # se crea al ejecutar (NO se versiona): una carpeta por corrida

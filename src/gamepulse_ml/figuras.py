@@ -5,7 +5,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from matplotlib.ticker import PercentFormatter
-from sklearn.metrics import precision_recall_curve
+from sklearn.metrics import precision_recall_curve, roc_curve, roc_auc_score
 
 SURF, INK, INK2, GRID = "#fcfcfb", "#0b0b0b", "#52514e", "#e4e3df"
 SERIES = ["#2a78d6", "#eb6834", "#1baf7a", "#6250d6"]
@@ -86,6 +86,41 @@ def curvas_pr(y, scores: dict, path):
     ax.text(0.99, y.mean() + 0.015, f"azar = {y.mean():.2f}", ha="right", fontsize=8, color=INK2)
     ax.set_xlabel("recall"); ax.set_ylabel("precisión"); ax.set_xlim(0, 1); ax.set_ylim(0, 1)
     ax.set_title("Curvas precisión-recall en prueba"); ax.legend(frameon=False, fontsize=9)
+    return _guardar(fig, path)
+
+
+def curvas_roc(y, scores: dict, path):
+    """Genera curvas ROC para comparar los modelos en prueba."""
+    fig, ax = plt.subplots(figsize=(7, 4.4))
+
+    # Curva ROC y su área para cada modelo
+    for (nombre, score), color in zip(scores.items(), SERIES):
+        fpr, tpr, _ = roc_curve(y, score)
+        auc = roc_auc_score(y, score)
+
+        ax.plot(
+            fpr,
+            tpr,
+            lw=2,
+            color=color,
+            label=f"{nombre} (AUC={auc:.3f})",
+        )
+
+    ax.plot(
+        [0, 1], [0, 1],
+        color=INK2,
+        lw=1,
+        ls="--",
+        label="Azar (AUC=0.500)",
+    )
+
+    ax.set_xlabel("Tasa de falsos positivos")
+    ax.set_ylabel("Tasa de verdaderos positivos")
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+    ax.set_title("Curvas ROC en prueba temporal")
+    ax.legend(frameon=False, fontsize=8, loc="lower right")
+
     return _guardar(fig, path)
 
 

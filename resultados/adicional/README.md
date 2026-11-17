@@ -13,7 +13,7 @@ coinciden con `resultados_modelos.csv` antes de seguir.
 | `ic_bootstrap.csv` | PR-AUC, ROC-AUC, precisión@10 %, recall@10 % y lift de cada modelo en prueba, con IC 95 % por bootstrap agrupado por personaje (2.000 remuestreos, semilla 42) |
 | `ic_diferencias.csv` | Diferencias entre pares de modelos con su IC 95 % e indicador de si el intervalo excluye el cero |
 | `lift.csv` | Lift de la PR-AUC en validación (tasa base 13,2 %) y en prueba (19,6 %), y lift@10 % en prueba |
-| `calibracion_por_corte.csv` | Riesgo medio estimado por LightGBM frente al churn observado en cada corte de prueba (mejora 5, trabajo futuro) |
+| `calibracion_por_corte.csv` | Riesgo medio estimado por LightGBM frente al churn observado en cada corte de prueba (mejora 6, trabajo futuro) |
 | `fig_ic_lift.png` | Figura de los intervalos y del lift |
 | `salida_consola.txt` | Salida completa de la ejecución |
 

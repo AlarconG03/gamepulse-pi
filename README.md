@@ -104,7 +104,7 @@ gamepulse-pi/
 ├── tablero/                   # tablero Streamlit (sección 6): ver tablero/README.md
 │   └── datos/                 # instantánea exportada de Athena (versionada, ~4 MB) que lee el tablero
 ├── resultados/adicional/      # salidas de analisis_adicional (ver su README)
-├── resultados/referencia/     # salidas de la corrida de referencia (versionadas, ~2 MB)
+├── resultados/referencia/     # salidas de la corrida de referencia (versionadas, ~2,5 MB)
 │   ├── resultados_modelos.csv, desempeno_por_corte_prueba.csv, ficha_corrida.json
 │   ├── matriz_recomendaciones.csv, scores_prueba.parquet   # entrada para visualización
 │   ├── ablacion_controlada.csv, variables_individuales_cv.csv

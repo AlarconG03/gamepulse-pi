@@ -14,12 +14,7 @@ from sklearn.metrics import (
 )
 from . import logger
 from .config import ConfigModelado
-from .modelos import (
-    entrenar_familia,
-    evaluar_configuracion_fija,
-    particion,
-    folds_temporales,
-)
+from .modelos import entrenar_familia, particion, folds_temporales
 from .dataset import columnas_modelo
 
 PERFIL = ["frac_dias_activos_28", "horas_por_dia_activo_28", "tendencia_horas", "nivel", "niveles_ganados_28",
@@ -69,51 +64,17 @@ def perfiles_kmeans(data: pd.DataFrame, cfg: ConfigModelado, riesgo_test: np.nda
 
 
 
-def ablacion_controlada(
-    data: pd.DataFrame,
-    cfg: ConfigModelado,
-    mejor: dict
-) -> dict:
-    """Compara el modelo con y sin variables censuradas."""
-
-    # Recuperar los resultados originales de validación
+def ablacion_controlada(data: pd.DataFrame, cfg: ConfigModelado, mejor: dict) -> dict:
+    """Mismo modelo y mismos hiperparámetros, con y sin las variables censuradas; se compara en validación."""
     params = mejor["params"]
-    cv_original = next(
-        c for c in mejor["cv"]
-        if c["params"] == params
-    )
-
-    # Reentrenar sin las variables usando los mismos parametros
-    resultado = evaluar_configuracion_fija(
-        familia=mejor["familia"],
-        data=data,
-        cfg=cfg,
-        params=params,
-        excluir=CENSURADAS,
-    )
-
-    # Comparar el rendimiento en validación temporal
-    cv_con = float(cv_original["PR_AUC_media"])
-    cv_sin = float(resultado["PR_AUC_cv_media"])
-
-    # Conservar la comparación en prueba como resultado secundario
-    test_con = float(mejor["metricas_test"]["PR_AUC"])
-    test_sin = float(resultado["metricas_test"]["PR_AUC"])
-
-    return {
-        "familia": mejor["familia"],
-        "variables_excluidas": CENSURADAS,
-        "hiperparametros": params,
-        "n_folds": cfg.n_folds,
-        "PR_AUC_cv_con": cv_con,
-        "PR_AUC_cv_sin": cv_sin,
-        "diferencia_cv": round(cv_sin - cv_con, 4),
-        "PR_AUC_test_con": test_con,
-        "PR_AUC_test_sin": test_sin,
-        "diferencia_test": round(test_sin - test_con, 4),
-        "ROC_AUC_test_con": mejor["metricas_test"]["ROC_AUC"],
-        "ROC_AUC_test_sin": resultado["metricas_test"]["ROC_AUC"],
-    }
+    cv_con = next(c["PR_AUC_media"] for c in mejor["cv"] if c["params"] == params)
+    sin = entrenar_familia(mejor["familia"], data, cfg, excluir=CENSURADAS, grid=[params])
+    cv_sin, test_con, test_sin = sin["cv"][0]["PR_AUC_media"], mejor["metricas_test"], sin["metricas_test"]
+    return {"familia": mejor["familia"], "variables_excluidas": CENSURADAS, "hiperparametros": params,
+            "n_folds": cfg.n_folds, "PR_AUC_cv_con": cv_con, "PR_AUC_cv_sin": cv_sin,
+            "diferencia_cv": round(cv_sin - cv_con, 4), "PR_AUC_test_con": test_con["PR_AUC"],
+            "PR_AUC_test_sin": test_sin["PR_AUC"], "diferencia_test": round(test_sin["PR_AUC"] - test_con["PR_AUC"], 4),
+            "ROC_AUC_test_con": test_con["ROC_AUC"], "ROC_AUC_test_sin": test_sin["ROC_AUC"]}
 
 
 def evaluar_variables_individuales(

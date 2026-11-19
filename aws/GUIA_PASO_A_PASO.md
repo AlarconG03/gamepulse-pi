@@ -1,6 +1,6 @@
 # Guía paso a paso: GamePulse en AWS
 
-Se ejecuta en **AWS CloudShell** (región us-east-1) con una cuenta personal. Costo real de todo el recorrido: US$ 0,33 en Glue (AWS Cost Explorer); conviene activar antes una alerta de presupuesto en AWS Budgets. Todos los scripts son idempotentes: se pueden repetir.
+Se ejecuta en **AWS CloudShell** (región us-east-1) con una cuenta personal. Costo de uso de todo el recorrido, incluidas las pruebas de escalabilidad (paso 6): US$ 1,21 en Glue según AWS Cost Explorer (filtro `RECORD_TYPE = Usage`); en nuestra cuenta lo cubrieron los créditos. Antes de empezar conviene activar una alerta de presupuesto en AWS Budgets. Todos los scripts son idempotentes: se pueden repetir.
 
 ## 0. Requisitos
 - Cuenta de AWS y un token de la API de Kaggle (`KGAT_...`).
